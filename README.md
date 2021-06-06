@@ -2,6 +2,12 @@
 
 With this docker image you don't need to install the Flutter and Android SDK on your developer machine. Everything is ready to use inclusive an emulator device (Pixel with Android 9). With a shell alias you won't recognize a difference between the image and a local installation. If you are using VSCode you can also use this image as your devcontainer.
 
+## How to build
+```shell
+docker build -t flutter .
+```
+
+
 ## Supported tags
 
 - [`latest`](https://github.com/matsp/docker-flutter/blob/master/stable/Dockerfile)
@@ -13,6 +19,7 @@ With this docker image you don't need to install the Flutter and Android SDK on 
 - `flutter` (default)
 - `flutter-android-emulator`
 - `flutter-web` (beta only)
+- `flutter-integration-test`
 
 _Dependencies_
 
@@ -43,6 +50,16 @@ To achieve the best performance we will mount the X11 directory, DRI and KVM dev
 ```shell
 xhost local:$USER && docker run --rm -ti -e UID=$(id -u) -e GID=$(id -g) -p 42000:42000 --workdir /project --device /dev/kvm --device /dev/dri:/dev/dri -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY -v "$PWD":/project --entrypoint flutter-android-emulator  matspfeiffer/flutter
 ```
+
+### flutter-integration-test
+
+To achieve the best performance we will mount the X11 directory, DRI and KVM device of the host to get full hardware acceleration:
+
+```shell
+xhost local:$USER && docker run --rm -ti -e UID=$(id -u) -e GID=$(id -g) -p 42000:42000 --workdir /project --device /dev/kvm --device /dev/dri:/dev/dri -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY -v "$PWD":/project --entrypoint flutter-integration-test  flutter
+```
+
+
 
 ### flutter-web (beta only)
 
