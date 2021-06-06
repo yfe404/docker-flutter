@@ -62,4 +62,5 @@ RUN curl -o flutter.tar.xz $FLUTTER_URL \
 COPY entrypoint.sh /usr/local/bin/
 COPY chown.sh /usr/local/bin/
 COPY flutter-android-emulator.sh /usr/local/bin/flutter-android-emulator
+COPY flutter-integration-test.sh /usr/local/bin/flutter-integration-test
 ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
